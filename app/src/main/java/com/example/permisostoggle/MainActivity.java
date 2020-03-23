@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int STORAGE_PERMISSION_CODE = 2;
     public static final int CALENDAR_PERMISSION_CODE = 3;
     public static final int SMS_PERMISSION_CODE = 4;
+    public static final int VOICEMAIL_PERMISSION_CODE = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         switchFive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this,"Ya concediste ", Toast.LENGTH_LONG).show();
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_VOICEMAIL) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this,"Ya concediste Voicemail", Toast.LENGTH_LONG).show();
                 }
 
                 else {
@@ -130,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
                                     Manifest.permission.READ_CONTACTS,
                                     Manifest.permission.READ_EXTERNAL_STORAGE,
                                     Manifest.permission.READ_CALENDAR,
-                                    Manifest.permission.READ_SMS},1);
+                                    Manifest.permission.READ_SMS,
+                                    Manifest.permission.READ_VOICEMAIL},1);
                         }
                     })
                     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -145,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.READ_CONTACTS,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.READ_CALENDAR,
-                    Manifest.permission.READ_SMS}, 1);
+                    Manifest.permission.READ_SMS,
+                    Manifest.permission.READ_VOICEMAIL}, 1);
         }
     }
 
@@ -160,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this,"Permiso Contactos concedido", Toast.LENGTH_LONG).show();
                     }
+                    else {
+                        Toast.makeText(this, "Permiso Contactos negado", Toast.LENGTH_LONG).show();
+                    }
                 }
                 break;
             case STORAGE_PERMISSION_CODE:
@@ -168,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this,"Permiso Storage concedido", Toast.LENGTH_LONG).show();
 
+                    }
+                    else {
+                        Toast.makeText(this, "Permiso Storage negado", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
@@ -178,6 +187,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this,"Permiso Calendar concedido", Toast.LENGTH_LONG).show();
 
                     }
+                    else {
+                        Toast.makeText(this, "Permiso Calendar negado", Toast.LENGTH_LONG).show();
+                    }
                 }
                 break;
             case SMS_PERMISSION_CODE:
@@ -186,6 +198,21 @@ public class MainActivity extends AppCompatActivity {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this,"Permiso SMS concedido", Toast.LENGTH_LONG).show();
 
+                    }
+                    else {
+                        Toast.makeText(this, "Permiso SMS negado", Toast.LENGTH_LONG).show();
+                    }
+                }
+                break;
+            case VOICEMAIL_PERMISSION_CODE:
+                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_VOICEMAIL)) {
+                    // check whether storage permission granted or not.
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this,"Permiso Voicemail concedido", Toast.LENGTH_LONG).show();
+
+                    }
+                    else {
+                        Toast.makeText(this, "Permiso Voicemail negado", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;

@@ -42,8 +42,10 @@
         android:layout_height="wrap_content"></Switch>
 
     <Switch
+        android:text="Media"
+        android:gravity="left"
         android:id="@+id/switchFive"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_gravity="center_horizontal"
         android:showText="true"
         android:layout_height="wrap_content"></Switch>
