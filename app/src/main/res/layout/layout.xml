@@ -7,28 +7,36 @@
 
     <Switch
         android:id="@+id/switchOne"
-        android:layout_width="wrap_content"
+        android:text="Contacts"
+        android:gravity="left"
+        android:layout_width="fill_parent"
         android:layout_gravity="center_horizontal"
         android:showText="true"
         android:layout_height="wrap_content"></Switch>
 
     <Switch
         android:id="@+id/switchTwo"
-        android:layout_width="wrap_content"
+        android:text="Storage"
+        android:gravity="left"
+        android:layout_width="fill_parent"
         android:layout_gravity="center_horizontal"
         android:showText="true"
         android:layout_height="wrap_content"></Switch>
 
     <Switch
+        android:text="Calendar"
+        android:gravity="left"
         android:id="@+id/switchThree"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_gravity="center_horizontal"
         android:showText="true"
         android:layout_height="wrap_content"></Switch>
 
     <Switch
+        android:text="SMS"
+        android:gravity="left"
         android:id="@+id/switchFour"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_gravity="center_horizontal"
         android:showText="true"
         android:layout_height="wrap_content"></Switch>

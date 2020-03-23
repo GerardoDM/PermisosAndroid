@@ -42,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
         Boolean switchFiveChecked = switchFive.isChecked();
 
 
+
+
         //Checked On Change Listener para Switch
+
         switchOne.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -55,6 +58,60 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        switchTwo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    requestStoragePermission();
+                }
+            }
+        });
+
+        switchThree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    requestStoragePermission();
+                }
+            }
+        });
+
+        switchFour.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    requestStoragePermission();
+                }
+            }
+        });
+
+        switchFive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    requestStoragePermission();
+                }
+            }
+        });
+
+
 
 
     }
@@ -69,21 +126,36 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
-                            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_CONTACTS}, STORAGE_PERMISSION_CODE);
+                            ActivityCompat.requestPermissions(MainActivity.this,new String[]{
+                                    Manifest.permission.READ_CONTACTS,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_CALENDAR,
+                                    Manifest.permission.READ_SMS}, STORAGE_PERMISSION_CODE);
 
                         }
+
+
                     })
-                    .setNegativeButton("Canceñar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
+
+
                         }
+
+
                     })
                     .create().show();
+
         }
 
         else {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS}, STORAGE_PERMISSION_CODE);
+            ActivityCompat.requestPermissions(this,new String[]{
+                    Manifest.permission.READ_CONTACTS,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_CALENDAR,
+                    Manifest.permission.READ_SMS}, STORAGE_PERMISSION_CODE);
         }
     }
 
