@@ -16,9 +16,13 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
 
-    private int STORAGE_PERMISSION_CODE = 1;
+    public static final int CONTACTS_PERMISSION_CODE = 1;
+    public static final int STORAGE_PERMISSION_CODE = 2;
+    public static final int CALENDAR_PERMISSION_CODE = 3;
+    public static final int SMS_PERMISSION_CODE = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +46,13 @@ public class MainActivity extends AppCompatActivity {
         Boolean switchFiveChecked = switchFive.isChecked();
 
 
-
-
         //Checked On Change Listener para Switch
 
         switchOne.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Ya concediste Contacts", Toast.LENGTH_LONG).show();
                 }
 
                 else {
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Ya concediste Storage", Toast.LENGTH_LONG).show();
                 }
 
                 else {
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Ya concediste Calendar", Toast.LENGTH_LONG).show();
                 }
 
                 else {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Ya concediste SMS", Toast.LENGTH_LONG).show();
                 }
 
                 else {
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this,"Ya concediste este permiso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Ya concediste ", Toast.LENGTH_LONG).show();
                 }
 
                 else {
@@ -118,47 +120,81 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestStoragePermission(){
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-
             new AlertDialog.Builder(this)
                     .setTitle("Permiso requerido")
                     .setMessage("Este permiso es requerido")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
                             ActivityCompat.requestPermissions(MainActivity.this,new String[]{
                                     Manifest.permission.READ_CONTACTS,
                                     Manifest.permission.READ_EXTERNAL_STORAGE,
                                     Manifest.permission.READ_CALENDAR,
-                                    Manifest.permission.READ_SMS}, STORAGE_PERMISSION_CODE);
-
+                                    Manifest.permission.READ_SMS},1);
                         }
-
-
                     })
                     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
-
-
                         }
-
-
                     })
                     .create().show();
-
-        }
-
-        else {
+        } else {
             ActivityCompat.requestPermissions(this,new String[]{
                     Manifest.permission.READ_CONTACTS,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.READ_CALENDAR,
-                    Manifest.permission.READ_SMS}, STORAGE_PERMISSION_CODE);
+                    Manifest.permission.READ_SMS}, 1);
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case CONTACTS_PERMISSION_CODE:
+                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_CONTACTS)) {
+                    // check whether camera permission granted or not.
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this,"Permiso Contactos concedido", Toast.LENGTH_LONG).show();
+                    }
+                }
+                break;
+            case STORAGE_PERMISSION_CODE:
+                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    // check whether storage permission granted or not.
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this,"Permiso Storage concedido", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                break;
+            case CALENDAR_PERMISSION_CODE:
+                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_CALENDAR)) {
+                    // check whether storage permission granted or not.
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this,"Permiso Calendar concedido", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                break;
+            case SMS_PERMISSION_CODE:
+                if (grantResults.length > 0 && permissions[0].equals(Manifest.permission.READ_SMS)) {
+                    // check whether storage permission granted or not.
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this,"Permiso SMS concedido", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == STORAGE_PERMISSION_CODE){
@@ -171,4 +207,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    */
 }
