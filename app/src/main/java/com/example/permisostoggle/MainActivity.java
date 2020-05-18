@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
         Boolean switchFourChecked = switchFour.isChecked();
         Boolean switchFiveChecked = switchFive.isChecked();
 
+        Button botonCambiar = (Button) findViewById(R.id.botonCambiar);
+        botonCambiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(MainActivity.this, Recicler.class));
+
+            }
+        });
 
         //Checked On Change Listener para Switch
 
@@ -54,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this,"Ya concediste Contacts", Toast.LENGTH_LONG).show();
+
+
                 }
 
                 else {
@@ -221,18 +233,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == STORAGE_PERMISSION_CODE){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this,"Permiso concedido", Toast.LENGTH_LONG).show();
-            }
 
-            else {
-                Toast.makeText(this, "Permiso negado", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-    */
+
 }
